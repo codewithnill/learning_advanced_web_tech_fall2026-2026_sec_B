@@ -12,19 +12,24 @@ function print_sorted(marks) {
     console.log(marks.join(" "));
 }
 
-// function courses(marks) {
-    
-// }
 
-// function calculate_total_marks(marks) {
-    
-// }
+
+function calculate_total_marks(marks) {
+    for(let i=0;i<marks.length;i++) {
+        total+=marks[i];
+    }
+
+    return total;
+}
 
 console.log();
 console.log("Number of courses currently on record :",marks.length);
 console.log("Stage 1 - Printing all marks in ascending order : ");
 print_sorted(marks);
 console.log();
+
+console.log("Stage 2 - Total marks after calcualting :",calculate_total_marks(marks));
+
 
 
 
