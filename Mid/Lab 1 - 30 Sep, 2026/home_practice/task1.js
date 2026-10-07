@@ -25,7 +25,7 @@ function calculate_grade(mark) {
 
 function calculate_average(courses) {
     let total = 0;
-    for (let i = 0; i < courses.length; i++) {
+    for (let i=0; i<courses.length; i++) {
         total += courses[i].mark;
     }
 
@@ -33,8 +33,26 @@ function calculate_average(courses) {
 }
 
 
-function highest_mark(courses) {
-    return courses[courses.length-1];
+function findHighestMark(courses) {
+
+    let topCourse = courses[0];
+    for (let i=1; i<courses.length; i++) {
+        if (courses[i].mark > topCourse.mark) {
+            topCourse = courses[i];
+        }
+    }
+    return topCourse;
+}
+
+function countPassedSubjects(courses) {
+    let count=0;
+    for (let i=0; i<courses.length; i++) {
+            if (courses[i].mark>=50) {
+            count++;
+        }
+    }
+
+    return count;
 }
 
 console.log();
@@ -51,7 +69,12 @@ console.log();
 console.log("Average:", calculate_average(courses));
 
 console.log();
-console.log("Highest marks achieved : ");
+const topCourse = findHighestMark(courses);
+console.log(`Highest marks achieved: ${topCourse.mark} (${topCourse.name})`);
+console.log();
+
+
+console.log("Number of passed subjects : ", countPassedSubjects(courses));
 
 
 
