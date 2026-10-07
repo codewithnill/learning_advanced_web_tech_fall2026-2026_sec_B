@@ -8,15 +8,15 @@ const courses = [
 ];
 
 function calculate_grade(mark) {
-    if (mark >= 90) {
+    if (mark>=90) {
         return 'A';
-    } else if (mark >= 80) {
+    } else if(mark>=80) {
         return 'B';
-    } else if (mark >= 70) {
+    } else if(mark>=70) {
         return 'C';
-    } else if (mark >= 60) {
+    } else if(mark>=60) {
         return 'D';
-    } else if (mark >= 50) {
+    } else if(mark>=50) {
         return 'E';
     }
     return 'F';
@@ -24,12 +24,12 @@ function calculate_grade(mark) {
 
 
 function calculate_average(courses) {
-    let total = 0;
+    let total=0;
     for (let i=0; i<courses.length; i++) {
-        total += courses[i].mark;
+        total+=courses[i].mark;
     }
 
-    return total / courses.length;
+    return total/courses.length;
 }
 
 
