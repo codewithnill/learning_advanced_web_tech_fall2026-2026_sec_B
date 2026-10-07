@@ -22,6 +22,21 @@ function calculate_grade(mark) {
     return 'F';
 }
 
+
+function calculate_average(courses) {
+    let total = 0;
+    for (let i = 0; i < courses.length; i++) {
+        total += courses[i].mark;
+    }
+
+    return total / courses.length;
+}
+
+
+function highest_mark(courses) {
+    return courses[courses.length-1];
+}
+
 console.log();
 console.log("Student:", name);
 console.log("Number of courses currently on record:", courses.length);
@@ -33,4 +48,11 @@ for (const course of courses) {
 }
 
 console.log();
+console.log("Average:", calculate_average(courses));
+
+console.log();
+console.log("Highest marks achieved : ");
+
+
+
 
