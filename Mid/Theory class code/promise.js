@@ -4,7 +4,7 @@ function getStudentData() {
 
     setTimeout(() => {
 
-      const success = true;
+      const success = false;
 
       if (success) {
 
@@ -45,4 +45,4 @@ async function displayStudent() {
 //   displayStudent();
 // }
 
-//  main();
+// main();
