@@ -1,0 +1,26 @@
+# Dependencies
+/node_modules
+
+# Compiled output
+/dist
+/build
+
+# Environment variables (CRITICAL: Do not share your real password)
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS / Editor files
+.DS_Store
+.idea
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
