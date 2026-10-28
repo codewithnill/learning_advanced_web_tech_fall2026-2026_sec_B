@@ -1,132 +1,242 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Product Management API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A NestJS backend application for managing products and employees through RESTful CRUD APIs. The application uses TypeORM repositories and a PostgreSQL database for persistent storage.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Student Details
 
-## Description
+- **Name:** Nil
+- **Student ID:** 23-53718-3
+- **Section:** B
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Project Description
 
-## Project setup
+This project was created for **Lab Task 1**. It implements a small shop management API with two resources:
 
-```bash
-$ npm install
+- **Products:** create, list, retrieve, update, and delete products.
+- **Employees:** create, list, retrieve, update, and delete employees.
+
+The application follows NestJS modular structure. Controllers receive HTTP requests, services contain the database operations and application logic, entities define the database tables, DTOs describe request data, and TypeORM connects the application to PostgreSQL.
+
+## Features
+
+- Product CRUD operations
+- Employee CRUD operations
+- PostgreSQL persistence through TypeORM
+- Auto-generated numeric IDs
+- DTO validation using `class-validator`
+- Integer parsing for route IDs using NestJS `ParseIntPipe`
+- `404 Not Found` responses when a requested product or employee does not exist
+- Postman evidence for the required product operations
+
+## Technology Stack
+
+- [NestJS](https://nestjs.com/)
+- TypeScript
+- TypeORM
+- PostgreSQL
+- `class-validator` and `class-transformer`
+- npm
+- Postman for API testing
+
+## Prerequisites
+
+Install the following before running the project:
+
+- Node.js and npm
+- PostgreSQL
+- A REST client such as Postman
+
+Create a PostgreSQL database named `product_management` before starting the application, or use another database name and update `DB_NAME` in the environment file.
+
+## Setup Instructions
+
+### 1. Clone or open the repository
+
+Place the project in the required course-repository location:
+
+```text
+Main Repo → Mid → Lab task 1 → product-management
 ```
 
-## Compile and run the project
+### 2. Install dependencies
+
+From the project root, run:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm install
 ```
 
-## Run tests
+The application is configured with TypeORM for PostgreSQL. If the PostgreSQL driver is not available after installing the dependencies, install it with:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm install pg
 ```
 
-## Deployment
+### 3. Configure environment variables
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+Create a `.env` file in the project root based on `.env.example`:
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+```env
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=*****
+DB_NAME=product_management
+```
+
+Do not commit the real `.env` file or expose database passwords. The repository should contain `.env.example` only.
+
+### 4. Start the application
+
+Development mode with automatic restart:
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm run start:dev
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+The API runs at:
 
-## Observability
-
-In production applications, observability is essential for understanding how your system behaves, detecting issues early, and maintaining reliable performance.
-
-[NestJS Observe](https://observe.nestjs.com) automatically instruments your NestJS application, giving you deep visibility into your system with minimal setup:
-
-- **Distributed tracing:** Follow requests across services and understand how they flow through your system.
-- **Waterfall analysis:** Visualize request execution and identify slow operations, bottlenecks, and unexpected delays.
-- **Performance analysis:** Analyze application performance in real time and quickly pinpoint areas that need optimization.
-- **Metrics:** Track key application and infrastructure metrics to understand system health and performance trends.
-- **Logging:** Centralize and correlate logs with traces and other telemetry to make debugging easier.
-- **Error tracking:** Detect errors quickly and investigate their root causes with the surrounding context.
-- **SLA monitoring:** Track service-level objectives and identify when your application is approaching or exceeding defined thresholds.
-- **Alarms and alerts:** Set up alerts for critical errors, performance degradation, SLA violations, and other anomalies so your team can react quickly.
-
-To add it to this project, run this and approve the code it prints at [observe.nestjs.com/link](https://observe.nestjs.com/link) - signing up for free if you have no account:
-
-```bash
-$ npx @nestjs/observe link
+```text
+http://localhost:3000
 ```
 
-It installs `@nestjs/observe`, wires it into `AppModule` and `main.ts`, and writes the app key and secret into `.env`, which every `nest start` script (`start`, `start:dev`, `start:debug`) then loads. In production, set `OBSERVE_APP_KEY` and `OBSERVE_APP_SECRET` in the environment instead.
+### Database note
 
-Or do it by hand:
+The application uses TypeORM with `synchronize: true` in the Nest configuration. On startup, TypeORM creates or updates the tables from the entity definitions. This setting is suitable for this lab project; migrations should be used instead for production applications.
 
-```bash
-$ npm install @nestjs/observe
+## Project Structure
+
+```text
+product-management/
+├── src/
+│   ├── employees/
+│   │   ├── dto/
+│   │   │   ├── create-employee.dto.ts
+│   │   │   └── update-employee.dto.ts
+│   │   ├── entities/
+│   │   │   └── employee.entity.ts
+│   │   ├── employees.controller.ts
+│   │   ├── employees.module.ts
+│   │   └── employees.service.ts
+│   ├── products/
+│   │   ├── dto/
+│   │   │   ├── create-product.dto.ts
+│   │   │   └── update-product.dto.ts
+│   │   ├── entities/
+│   │   │   └── product.entity.ts
+│   │   ├── products.controller.ts
+│   │   ├── products.module.ts
+│   │   └── products.service.ts
+│   ├── app.module.ts
+│   └── main.ts
+├── screenshots/
+├── test/
+├── .env.example
+├── .gitignore
+├── package.json
+├── package-lock.json
+├── nest-cli.json
+├── tsconfig.json
+└── README.md
 ```
 
-Then follow the [setup guide](https://docs.nestjs.com/observability/sdk) - it takes a single import and an app key.
+## Database Entities
 
-The free plan needs no payment details and covers 300,000 events a month. You can also browse the [live demo](https://www.observe-demo.nestjs.com/dashboard) first - the whole dashboard over a busy service's data, with nothing to install.
+### Product
 
-## Resources
+| Field | Type | Description |
+|---|---|---|
+| `id` | Generated integer | Primary key generated by the database |
+| `name` | String | Product name |
+| `category` | String | Product category |
+| `price` | Decimal number | Product price |
+| `quantity` | Integer | Available stock quantity |
 
-Check out a few resources that may come in handy when working with NestJS:
+### Employee
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Auto-instrument your application with [NestJS Observe](https://observe.nestjs.com). Distributed tracing, metrics, and logging made easy. Error tracking and performance monitoring for your NestJS applications.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+| Field | Type | Description |
+|---|---|---|
+| `id` | Generated integer | Primary key generated by the database |
+| `name` | String | Employee full name |
+| `email` | String | Employee email address |
+| `phone` | String | Phone number |
+| `password` | String | Dummy password for the lab task |
+| `age` | Integer | Employee age in years |
+| `yearsOfWorking` | Integer | Number of completed years of work experience |
 
-## Support
+> **Note:** The lab requests a dummy password field. A real application should hash passwords before storing them.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## API Endpoints
 
-## Stay in touch
+The default base URL is `http://localhost:3000`.
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Products
 
-## License
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/products` | Create and save a new product |
+| `GET` | `/products` | Return all saved products |
+| `GET` | `/products/:id` | Return one product by ID |
+| `PATCH` | `/products/:id` | Update the product with the given ID |
+| `DELETE` | `/products/:id` | Delete the product with the given ID |
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Example product request body:
+
+```json
+{
+  "name": "Notebook",
+  "category": "Stationery",
+  "price": 120.5,
+  "quantity": 25
+}
+```
+
+### Employees
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/employees` | Create and save a new employee |
+| `GET` | `/employees` | Return all saved employees |
+| `GET` | `/employees/:id` | Return one employee by ID |
+| `PATCH` | `/employees/:id` | Update the employee with the given ID |
+| `DELETE` | `/employees/:id` | Delete the employee with the given ID |
+
+Example employee request body:
+
+```json
+{
+  "name": "NB Nill",
+  "email": "nbnill.hmlnmh@gmail.com",
+  "phone": "01731300710",
+  "password": "abc123",
+  "age": 24,
+  "yearsOfWorking": 2
+}
+```
+
+## Request and Response Notes
+
+- Use `Content-Type: application/json` for POST and PATCH requests.
+- Route IDs are parsed as integers.
+- A successful create request returns the saved record, including its generated ID.
+- A successful update request returns the updated record.
+- A successful delete request returns a confirmation message.
+- Requests for missing product or employee IDs return `404 Not Found`.
+
+## Postman Evidence
+
+The `screenshots/` directory contains the required evidence for the product CRUD operations:
+
+| Filename | Evidence |
+|---|---|
+| `01-create.png` | POST request body and the saved product response |
+| `02-get-all.png` | GET response showing at least two products |
+| `03-get-by-id.png` | GET response for one actual product ID |
+| `04-update.png` | PATCH request body and successful response |
+| `05-confirm-update.png` | GET response showing the changed values |
+| `06-delete.png` | DELETE request and successful status or response |
+| `07-confirm-delete.png` | GET response showing that the deleted product is absent |
+
+Each screenshot should show the HTTP method, full request URL, response status, and response body when present. POST and PATCH screenshots should show the JSON request body. Database passwords should not appear in screenshots.
+
+**Submission deadline:** 20 October 2026 at 11:59 AM.
