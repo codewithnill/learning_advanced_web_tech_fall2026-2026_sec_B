@@ -1,0 +1,129 @@
+Lab Task 1 - Progress & Setup Documentation
+
+1. DATABASE SETUP (PostgreSQL & DBeaver)
+- Installed PostgreSQL locally (Port 5432).
+- Opened DBeaver and created a new connection to localhost.
+- Successfully created a database named: product_management.
+
+
+
+
+2. PROJECT DEPENDENCIES (VS Code / Terminal)
+- Installed TypeORM and PostgreSQL driver: npm install @nestjs/typeorm typeorm pg
+- Installed environment configuration package: npm install @nestjs/config
+
+
+
+
+3. ENVIRONMENT CONFIGURATION (.env)
+- Created a `.env` file to securely store database credentials:
+  DB_HOST=localhost
+  DB_PORT=5432
+  DB_USERNAME=postgres
+  DB_PASSWORD=***
+  DB_NAME=product_management
+- Created a `.env.example` file with dummy password values for the GitHub repository.
+- Created a `.gitignore` file to ensure node_modules, dist, and the real .env file are not pushed to GitHub.
+
+
+
+
+
+4. NESTJS DATABASE CONNECTION (app.module.ts)
+- Updated `src/app.module.ts` to import ConfigModule and TypeOrmModule.
+- Configured TypeORM to connect to PostgreSQL using the variables from the .env file.
+- Set `autoLoadEntities: true` and `synchronize: true` (to automatically create database tables based on our entities).
+
+
+
+
+5. MODULE GENERATION
+- Used Nest CLI to generate the complete Resource for Products:
+  Command: nest g resource products
+  Selected: REST API
+  Selected: Generate CRUD entry points (Yes)
+- This automatically created:
+  - src/products/products.module.ts
+  - src/products/products.controller.ts
+  - src/products/products.service.ts
+  - src/products/entities/product.entity.ts
+  - src/products/dto/create-product.dto.ts
+  - src/products/dto/update-product.dto.ts
+
+
+
+
+
+6. DATABASE TABLE GENERATION (TypeORM Entity)
+- Defined the Product blueprint in `src/products/entities/product.entity.ts`.
+- Used TypeORM decorators (@Entity, @PrimaryGeneratedColumn, @Column) to set up id, name, category, price, and quantity.
+- Because `synchronize: true` is active, TypeORM automatically created the `products` table in the `product_management` PostgreSQL database upon saving.
+
+
+
+
+
+7. DATA TRANSFER OBJECTS (DTOs)
+- Updated `create-product.dto.ts` to define exactly what data clients can send when creating a product.
+- Updated `update-product.dto.ts` using `PartialType` from `@nestjs/mapped-types` to make all fields optional for updates.
+
+
+
+
+
+8. MODULE REGISTRATION
+- Updated `src/products/products.module.ts` to import `TypeOrmModule.forFeature([Product])`, linking the entity to the database for this specific module.
+
+
+
+
+
+9. BUSINESS LOGIC (ProductsService)
+- Added the database logic in `src/products/products.service.ts`.
+- Implemented `create`, `findAll`, `findOne`, `update`, and `remove` methods using the TypeORM Repository to perform actual database CRUD operations.
+- Included `NotFoundException` handling if a product ID is not found.
+
+
+
+
+
+10. API ROUTING (ProductsController)
+- Updated `src/products/products.controller.ts` to handle HTTP requests.
+- Set up routes for POST, GET, PATCH, and DELETE.
+- Used `ParseIntPipe` to ensure the URL `id` parameter is always converted to a number.
+
+
+
+
+
+11. TESTING WITH POSTMAN & DBEAVER
+- Successfully tested the `POST /products` endpoint, receiving a `201 Created` status.
+- Verified that the data was physically saved in PostgreSQL by checking the `products` table in DBeaver.
+- Tested the `GET /products` endpoint, receiving a `200 OK` status with the created product data.
+
+
+12. EMPLOYEE ENTITY & DTOS
+- Generated the Employee resource using Nest CLI.
+- Created `employee.entity.ts` with fields: id, name, email, phone, password, age, and yearsOfWorking.
+- Created `create-employee.dto.ts` and `update-employee.dto.ts` to validate incoming data.
+
+
+
+
+13. EMPLOYEE MODULE, SERVICE, AND CONTROLLER
+- Updated `employees.module.ts` to register the Employee entity with TypeORM.
+- Added CRUD logic to `employees.service.ts` using the Repository to interact with the database.
+- Implemented standard REST routes in `employees.controller.ts` (POST, GET, PATCH, DELETE).
+- Successfully tested the `POST /employees` endpoint in Postman and verified the table creation in DBeaver.
+
+
+14. POSTMAN TESTING & SCREENSHOTS
+- Created a `screenshots` folder in the project root.
+- Captured 7 required screenshots for the Products API operations:
+  01-create.png (POST body and saved response)
+  02-get-all.png (GET showing 2 products with different categories)
+  03-get-by-id.png (GET for a specific product ID)
+  04-update.png (PATCH request body and successful response)
+  05-confirm-update.png (GET by ID showing updated values)
+  06-delete.png (DELETE request and successful response)
+  07-confirm-delete.png (GET all showing the deleted product is gone)
